@@ -3,7 +3,7 @@ services:
   mariadb:
     image: 'bitnami/mariadb:10.3'
     volumes:
-      - 'mariadb_data:/bitnami/mariadb'
+      - './mariadb:/bitnami/mariadb'
     environment:
       - MARIADB_USER=bn_wordpress
       - MARIADB_DATABASE=bitnami_wordpress
@@ -14,7 +14,7 @@ services:
       - '80:8080'
       - '443:8443'
     volumes:
-      - 'wordpress_data:/bitnami/wordpress'
+      - './www:/bitnami/wordpress'
       - './wordpress-server-block.conf:/opt/bitnami/nginx/conf/server_blocks/wordpress-server-block.conf:ro'
     depends_on:
       - mariadb
@@ -24,8 +24,3 @@ services:
       - WORDPRESS_DATABASE_USER=bn_wordpress
       - WORDPRESS_DATABASE_NAME=bitnami_wordpress
       - ALLOW_EMPTY_PASSWORD=yes
-volumes:
-  mariadb_data:
-    driver: local
-  wordpress_data:
-    driver: local
