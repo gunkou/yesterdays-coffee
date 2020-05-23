@@ -1,0 +1,29 @@
+html {
+  color: #333;
+  font-size: 62.5%;
+  font-family: "Noto Sans JP";
+  font-feature-settings: "palt" 1;
+  font-kerning: auto;
+  line-height: 1.8;
+  letter-spacing: 0.4em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-size: 1.8rem;
+}
+
+* {
+  font-size: 1.8rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+.post {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 50px;
+  padding-bottom: 50px;
+}
