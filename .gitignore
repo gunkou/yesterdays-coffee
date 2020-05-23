@@ -1,7 +1,3 @@
-mariadb/
-www/*
-!www/wp-content/themes/yesterdays-coffee
-
 # Logs
 logs
 *.log
@@ -106,3 +102,14 @@ dist
 
 # TernJS port file
 .tern-port
+
+
+mariadb/
+www/.initialized
+www/wp-config.php
+www/wp-content/index.php
+www/wp-content/languages/
+www/wp-content/plugins/
+www/wp-content/upgrade/
+www/wp-content/uploads/
+www/wp-content/themes/index.php
