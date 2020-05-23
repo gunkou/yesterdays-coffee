@@ -1,3 +1,7 @@
+mariadb/
+www/*
+!www/wp-content/themes/yesterdays-coffee
+
 # Logs
 logs
 *.log
