@@ -57,7 +57,7 @@ jobs:
       - run:
           name: テーマファイルのコピー
           command: |
-            cp -r ~/yesterdays-coffee/wp-content/themes ~/tmp
+            cp -r ~/yesterdays-coffee/www/wp-content/themes ~/tmp
       - persist_to_workspace:
           root: ~/tmp/yesterdays-coffee
           paths: ./*
