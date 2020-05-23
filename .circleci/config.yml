@@ -1,17 +1,119 @@
 version: 2.1
+
 orbs:
-  node: circleci/node@1.1.6
+  slack: circleci/slack@3.4.2
+
+executors:
+  default:
+    working_directory: /home/circleci/yesterdays-coffee
+    docker:
+      - image: circleci/node:12.16.3
+  ssh:
+    docker:
+      - image: circleci/ruby:2.3
+
+commands:
+  restore_npm:
+    steps:
+      - restore_cache:
+          keys: # node.jsまたはnpmのバージョンが上がったら`vN`の番号を上げる
+            - npm-v1-{{ arch }}-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - npm-v1-{{ arch }}-{{ .Branch }}-
+            - npm-v1-{{ arch }}-
+  save_npm:
+    steps:
+      - save_cache:
+          key: npm-v1-{{ arch }}-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - "./node_modules"
+  setup_ssh:
+    steps:
+      - add_ssh_keys:
+           fingerprints:
+             - "89:1f:42:1b:ba:98:ae:7f:17:67:7c:ba:00:07:51:40"
+      - run:
+          name: sshの警告メッセージを出さないようにする
+          command: |
+            mkdir -p ~/.ssh
+            chmod 700 ~/.ssh
+            echo -e "Host ${IP}\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+            chmod 600 ~/.ssh/config
+
 jobs:
-  build-and-test:
+  compile:
     executor:
-      name: node/default
+        name: default
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm test
+      # - restore_npm
+      # - run:
+      #     name: npmのインストール
+      #     command: npm install
+      # - save_npm
+      # - run:
+      #     name: コンパイルの実行
+      #     command: |
+      #       npm run scss
+      - run:
+          name: テーマファイルのコピー
+          command: |
+            cp -r ~/yesterdays-coffee/wp-content/themes ~/tmp
+      - persist_to_workspace:
+          root: ~/tmp/yesterdays-coffee
+          paths: ./*
+
+  deploy:
+    executor:
+        name: ssh
+    steps:
+      - slack/notify:
+          message: "デプロイを開始します。"
+      - run:
+          name: rsyncのインストール
+          command: sudo apt update && sudo apt install -y rsync
+      - setup_ssh
+      - attach_workspace:
+          at: ~/tmp/yesterdays-coffee
+      - run:
+          name: 権限の変更
+          command: |
+            sudo chgrp daemon ~/tmp/yesterdays-coffee
+            sudo chmod 775 ~/tmp/yesterdays-coffee
+      - run:
+          name: デプロイ
+          command: |
+            # rsync -avn --delete ~/tmp/yesterdays-coffee ${HOST}@${IP}:~/apps/wordpress/htdocs/wp-content/themes
+            rsync -avz --delete ~/tmp/yesterdays-coffee ${HOST}@${IP}:~/apps/wordpress/htdocs/wp-content/themes
+      - slack/status:
+          success_message: "デプロイが完了しました。"
+          failure_message: "デプロイが失敗しました。"
+
 workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
+  deploy:
+    jobs:
+      - compile
+      - slack/approval-notification:
+          message: "本番デプロイ準備ができました。承認してください。"
+          requires:
+            - compile
+          filters:
+            branches:
+              only:
+                - master
+      - hold:
+          type: approval
+          requires:
+            - compile
+          filters:
+            branches:
+              only:
+                - master
+      - deploy:
+          requires:
+            - compile
+            - hold
+          filters:
+            branches:
+              only:
+                - master
+                - stage
