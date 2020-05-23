@@ -23,13 +23,18 @@
 			<div class="entry-meta">
 				<?php
 				yesterdays_coffee_posted_on();
-				yesterdays_coffee_posted_by();
+				// yesterdays_coffee_posted_by();
 				?>
 			</div><!-- .entry-meta -->
 		<?php endif; ?>
 	</header><!-- .entry-header -->
 
 	<?php yesterdays_coffee_post_thumbnail(); ?>
+
+    <?php if ( !is_singular() ) : ?>
+    <details>
+        <summary>Details</summary>
+	<?php endif; ?>
 
 	<div class="entry-content">
 		<?php
@@ -56,6 +61,10 @@
 		);
 		?>
 	</div><!-- .entry-content -->
+
+    <?php if ( !is_singular() ) : ?>
+    </details>
+	<?php endif; ?>
 
 	<footer class="entry-footer">
 		<?php yesterdays_coffee_entry_footer(); ?>

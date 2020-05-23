@@ -21,14 +21,6 @@ if ( ! function_exists( 'yesterdays_coffee_setup' ) ) :
 	 * as indicating support for post thumbnails.
 	 */
 	function yesterdays_coffee_setup() {
-		/*
-		 * Make theme available for translation.
-		 * Translations can be filed in the /languages/ directory.
-		 * If you're building a theme based on yesterdays-coffee, use a find and replace
-		 * to change 'yesterdays-coffee' to the name of your theme in all the template files.
-		 */
-		load_theme_textdomain( 'yesterdays-coffee', get_template_directory() . '/languages' );
-
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
 
@@ -48,11 +40,11 @@ if ( ! function_exists( 'yesterdays_coffee_setup' ) ) :
 		add_theme_support( 'post-thumbnails' );
 
 		// This theme uses wp_nav_menu() in one location.
-		register_nav_menus(
-			array(
-				'menu-1' => esc_html__( 'Primary', 'yesterdays-coffee' ),
-			)
-		);
+		// register_nav_menus(
+		// 	array(
+		// 		'menu-1' => esc_html__( 'Primary', 'yesterdays-coffee' ),
+		// 	)
+		// );
 
 		/*
 		 * Switch default core markup for search form, comment form, and comments
@@ -144,6 +136,8 @@ add_action( 'widgets_init', 'yesterdays_coffee_widgets_init' );
  */
 function yesterdays_coffee_scripts() {
 	wp_enqueue_style( 'yesterdays-coffee-style', get_stylesheet_uri(), array(), _S_VERSION );
+	wp_enqueue_style( 'yesterdays-coffee-style-common', get_template_directory_uri() . '/assets/css/common.css', array(), _S_VERSION );
+    wp_enqueue_style( 'webfont', 'https://fonts.googleapis.com/css?family=Noto+Sans+JP', array( 'yesterdays-coffee-style' ) );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );

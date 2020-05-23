@@ -17,7 +17,7 @@
 		<div class="entry-meta">
 			<?php
 			yesterdays_coffee_posted_on();
-			yesterdays_coffee_posted_by();
+			// yesterdays_coffee_posted_by();
 			?>
 		</div><!-- .entry-meta -->
 		<?php endif; ?>

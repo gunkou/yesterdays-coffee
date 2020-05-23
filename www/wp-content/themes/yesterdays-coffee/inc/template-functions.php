@@ -35,3 +35,27 @@ function yesterdays_coffee_pingback_header() {
 	}
 }
 add_action( 'wp_head', 'yesterdays_coffee_pingback_header' );
+
+// 不要そうなmeta要素を削除
+remove_action('wp_head', 'wp_generator');
+remove_action('wp_head', 'rsd_link');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'wp_shortlink_wp_head');
+remove_action('wp_head', 'feed_links', 2);
+remove_action('wp_head', 'feed_links_extra', 3);
+remove_action('wp_head','rest_output_link_wp_head');
+remove_action('wp_head','adjacent_posts_rel_link_wp_head');
+
+
+// タグ
+function custom_tag_cloud($args) {
+        $custom_args = array(
+                'smallest'  => 100,
+                'largest'   => 100,
+                'unit'      => '%',
+                'format'    => 'list',
+        );
+        $args = wp_parse_args( $args, $custom_args );
+        return $args;
+}
+add_filter( 'widget_tag_cloud_args', 'custom_tag_cloud');

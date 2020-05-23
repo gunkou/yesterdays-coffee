@@ -23,7 +23,7 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'yesterdays-coffee' ); ?></a>
+	<!-- <a class="skip&#45;link screen&#45;reader&#45;text" href="#primary"><?php esc_html_e( 'Skip to content', 'yesterdays&#45;coffee' ); ?></a> -->
 
 	<header id="masthead" class="site-header">
 		<div class="site-branding">
@@ -45,7 +45,7 @@
 			<?php endif; ?>
 		</div><!-- .site-branding -->
 
-		<nav id="site-navigation" class="main-navigation">
+		<!-- <nav id="site-navigation" class="main-navigation">
 			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'yesterdays-coffee' ); ?></button>
 			<?php
 			wp_nav_menu(
@@ -55,5 +55,5 @@
 				)
 			);
 			?>
-		</nav><!-- #site-navigation -->
+		</nav> --><!-- #site-navigation -->
 	</header><!-- #masthead -->
