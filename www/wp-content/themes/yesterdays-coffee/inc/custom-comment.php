@@ -30,6 +30,15 @@ function yesterdays_coffee_comment($comment, $args, $depth) {
             </div><!-- .comment-content -->
 
            <ul>
+           <?php
+            if ( get_field('star', $comment) ):
+              $star = get_field_object('star', $comment);
+            ?>
+              <li>
+              <span><?php echo $star['label']; ?></span>
+              <span><?php echo $star['choices'][ $star['value'] ]; ?></span>
+              </li>
+            <?php endif; ?>
             <?php
             if ( get_field('amount-beans', $comment) ):
               $amount_beans = get_field_object('amount-beans', $comment);
