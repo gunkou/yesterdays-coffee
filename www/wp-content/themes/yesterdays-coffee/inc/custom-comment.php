@@ -35,8 +35,9 @@ function yesterdays_coffee_comment($comment, $args, $depth) {
               $star = get_field_object('star', $comment);
             ?>
               <li>
-              <span><?php echo $star['label']; ?></span>
-              <span><?php echo $star['choices'][ $star['value'] ]; ?></span>
+              <span><?php echo esc_html($star['label']); ?></span>
+              <span><?php echo esc_html($star['choices'][ $star['value'] ]); ?></span>
+              <span><?php echo esc_html($star['append']); ?></span>
               </li>
             <?php endif; ?>
             <?php
@@ -44,8 +45,9 @@ function yesterdays_coffee_comment($comment, $args, $depth) {
               $amount_beans = get_field_object('amount-beans', $comment);
             ?>
               <li>
-              <span><?php echo $amount_beans['label']; ?></span>
-              <span><?php echo $amount_beans['value']; ?></span>
+              <span><?php echo esc_html($amount_beans['label']); ?></span>
+              <span><?php echo esc_html($amount_beans['value']); ?></span>
+              <span><?php echo esc_html($amount_beans['append']); ?></span>
               </li>
             <?php endif; ?>
             <?php
@@ -53,8 +55,9 @@ function yesterdays_coffee_comment($comment, $args, $depth) {
               $grind_size = get_field_object('grind-size', $comment);
             ?>
               <li>
-              <span><?php echo $grind_size['label']; ?></span>
-              <span><?php echo $grind_size['choices'][ $grind_size['value'] ]; ?></span>
+              <span><?php echo esc_html($grind_size['label']); ?></span>
+              <span><?php echo esc_html($grind_size['choices'][ $grind_size['value'] ]); ?></span>
+              <span><?php echo esc_html($grind_size['append']); ?></span>
               </li>
             <?php endif; ?>
             <?php
@@ -62,8 +65,9 @@ function yesterdays_coffee_comment($comment, $args, $depth) {
               $temperature = get_field_object('temperature', $comment);
             ?>
               <li>
-              <span><?php echo $temperature['label']; ?></span>
-              <span><?php echo $temperature['value']; ?></span>
+              <span><?php echo esc_html($temperature['label']); ?></span>
+              <span><?php echo esc_html($temperature['value']); ?></span>
+              <sup><?php echo esc_html($temperature['append']); ?></sup>
               </li>
             <?php endif; ?>
             <?php
@@ -71,8 +75,9 @@ function yesterdays_coffee_comment($comment, $args, $depth) {
               $extraction_time = get_field_object('extraction-time', $comment);
             ?>
               <li>
-              <span><?php echo $extraction_time['label']; ?></span>
-              <span><?php echo $extraction_time['value']; ?></span>
+              <span><?php echo esc_html($extraction_time['label']); ?></span>
+              <span><?php echo esc_html($extraction_time['value']); ?></span>
+              <span><?php echo esc_html($extraction_time['append']); ?></span>
               </li>
             <?php endif; ?>
             <?php
@@ -80,8 +85,9 @@ function yesterdays_coffee_comment($comment, $args, $depth) {
               $extraction_amount = get_field_object('extraction-amount', $comment);
             ?>
               <li>
-              <span><?php echo $extraction_amount['label']; ?></span>
-              <span><?php echo $extraction_amount['value']; ?></span>
+              <span><?php echo esc_html($extraction_amount['label']); ?></span>
+              <span><?php echo esc_html($extraction_amount['value']); ?></span>
+              <span><?php echo esc_html($extraction_amount['append']); ?></span>
               </li>
             <?php endif; ?>
             <?php
@@ -89,8 +95,9 @@ function yesterdays_coffee_comment($comment, $args, $depth) {
               $input_amount = get_field_object('input-amount', $comment);
             ?>
               <li>
-              <span><?php echo $input_amount['label']; ?></span>
-              <span><?php echo $input_amount['value']; ?></span>
+              <span><?php echo esc_html($input_amount['label']); ?></span>
+              <span><?php echo esc_html($input_amount['value']); ?></span>
+              <span><?php echo esc_html($input_amount['append']); ?></span>
               </li>
             <?php endif; ?>
             <?php
@@ -98,8 +105,9 @@ function yesterdays_coffee_comment($comment, $args, $depth) {
               $steaming_time = get_field_object('steaming-time', $comment);
             ?>
               <li>
-              <span><?php echo $steaming_time['label']; ?></span>
-              <span><?php echo $steaming_time['value']; ?></span>
+              <span><?php echo esc_html($steaming_time['label']); ?></span>
+              <span><?php echo esc_html($steaming_time['value']); ?></span>
+              <span><?php echo esc_html($steaming_time['append']); ?></span>
               </li>
             <?php endif; ?>
             </ul>
