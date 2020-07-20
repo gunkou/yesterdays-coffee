@@ -54,6 +54,7 @@ if ( post_password_required() ) {
 				array(
 					'style'      => 'ol',
 					'short_ping' => true,
+					'callback' => 'yesterdays_coffee_comment'
 				)
 			);
 			?>
