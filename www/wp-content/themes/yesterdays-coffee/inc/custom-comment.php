@@ -29,89 +29,27 @@ function yesterdays_coffee_comment($comment, $args, $depth) {
                 <?php comment_text(); ?>
             </div><!-- .comment-content -->
 
-           <ul>
-           <?php
-            if ( get_field('star', $comment) ):
-              $star = get_field_object('star', $comment);
-            ?>
-              <li>
-              <span><?php echo esc_html($star['label']); ?></span>
-              <span><?php echo esc_html($star['choices'][ $star['value'] ]); ?></span>
-              <span><?php echo esc_html($star['append']); ?></span>
-              </li>
+            <?php $fields = get_fields($comment); if( $fields ): ?>
+                <ul>
+                    <?php foreach( $fields as $name => $value ): ?>
+                        <?php
+                            $field = get_field_object($name, $comment);
+                            $label = esc_html($field['label']);
+                            $unit = esc_html($field['append']);
+                            if ($field['type'] === 'select'){
+                                $val = esc_html($field['choices'][ $field['value'] ]);
+                            } else {
+                                $val = esc_html($field['value']);
+                            }
+                        ?>
+                        <li>
+                            <span><?php echo $label; ?></span>
+                            <span><?php echo $val; ?></span>
+                            <span><?php echo $unit; ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
             <?php endif; ?>
-            <?php
-            if ( get_field('amount-beans', $comment) ):
-              $amount_beans = get_field_object('amount-beans', $comment);
-            ?>
-              <li>
-              <span><?php echo esc_html($amount_beans['label']); ?></span>
-              <span><?php echo esc_html($amount_beans['value']); ?></span>
-              <span><?php echo esc_html($amount_beans['append']); ?></span>
-              </li>
-            <?php endif; ?>
-            <?php
-            if ( get_field('grind-size', $comment) ):
-              $grind_size = get_field_object('grind-size', $comment);
-            ?>
-              <li>
-              <span><?php echo esc_html($grind_size['label']); ?></span>
-              <span><?php echo esc_html($grind_size['choices'][ $grind_size['value'] ]); ?></span>
-              <span><?php echo esc_html($grind_size['append']); ?></span>
-              </li>
-            <?php endif; ?>
-            <?php
-            if ( get_field('temperature', $comment) ):
-              $temperature = get_field_object('temperature', $comment);
-            ?>
-              <li>
-              <span><?php echo esc_html($temperature['label']); ?></span>
-              <span><?php echo esc_html($temperature['value']); ?></span>
-              <sup><?php echo esc_html($temperature['append']); ?></sup>
-              </li>
-            <?php endif; ?>
-            <?php
-            if ( get_field('extraction-time', $comment) ):
-              $extraction_time = get_field_object('extraction-time', $comment);
-            ?>
-              <li>
-              <span><?php echo esc_html($extraction_time['label']); ?></span>
-              <span><?php echo esc_html($extraction_time['value']); ?></span>
-              <span><?php echo esc_html($extraction_time['append']); ?></span>
-              </li>
-            <?php endif; ?>
-            <?php
-            if ( get_field('extraction-amount', $comment) ):
-              $extraction_amount = get_field_object('extraction-amount', $comment);
-            ?>
-              <li>
-              <span><?php echo esc_html($extraction_amount['label']); ?></span>
-              <span><?php echo esc_html($extraction_amount['value']); ?></span>
-              <span><?php echo esc_html($extraction_amount['append']); ?></span>
-              </li>
-            <?php endif; ?>
-            <?php
-            if ( get_field('input-amount', $comment) ):
-              $input_amount = get_field_object('input-amount', $comment);
-            ?>
-              <li>
-              <span><?php echo esc_html($input_amount['label']); ?></span>
-              <span><?php echo esc_html($input_amount['value']); ?></span>
-              <span><?php echo esc_html($input_amount['append']); ?></span>
-              </li>
-            <?php endif; ?>
-            <?php
-            if ( get_field('steaming-time', $comment) ):
-              $steaming_time = get_field_object('steaming-time', $comment);
-            ?>
-              <li>
-              <span><?php echo esc_html($steaming_time['label']); ?></span>
-              <span><?php echo esc_html($steaming_time['value']); ?></span>
-              <span><?php echo esc_html($steaming_time['append']); ?></span>
-              </li>
-            <?php endif; ?>
-            </ul>
-
         </article><!-- .comment-body -->
   <?php
 }
